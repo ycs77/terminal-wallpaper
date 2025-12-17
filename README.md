@@ -43,3 +43,7 @@ git clone https://github.com/ycs77/terminal-wallpaper.git
   - **新增引數:** `C:\Users\[user]\.terminal-wallpaper\change-wallpaper.js`
 
 此設定會在使用者登入時，自動執行更換終端機背景圖片的腳本。
+
+## Collection 列表
+
+- `majotabi` - 魔女之旅
