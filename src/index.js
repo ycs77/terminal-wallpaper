@@ -2,6 +2,7 @@ import { init } from './init.js'
 import { use } from './use.js'
 import { update } from './update.js'
 import { list } from './list.js'
+import { updateReadme } from './update-readme.js'
 
 const command = process.argv[2]
 const args = process.argv.slice(3)
@@ -23,13 +24,17 @@ switch (command) {
   case 'update':
     update()
     break
+  case 'update-readme':
+    updateReadme()
+    break
   default:
-    console.log('Terminal Wallpaper CLI (v1.0.6)')
+    console.log('Terminal Wallpaper CLI (v1.0.7)')
     console.log('')
     console.log('使用方式:')
     console.log('  ./terminal-wallpaper init          初始化 Terminal Wallpaper')
     console.log('  ./terminal-wallpaper list          列出所有可用的桌布集合')
     console.log('  ./terminal-wallpaper use <name>    套用指定的桌布集合')
     console.log('  ./terminal-wallpaper update        更新腳本')
+    console.log('  ./terminal-wallpaper update-readme 更新 README.md 的集合列表')
     process.exit(command ? 1 : 0)
 }

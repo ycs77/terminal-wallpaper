@@ -1,4 +1,4 @@
-// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.6)
+// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.7)
 //
 // 工作排程器
 //   - 名稱：ChangeTerminalWallpaper
