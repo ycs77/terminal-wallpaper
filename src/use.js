@@ -54,6 +54,15 @@ export function use(collectionName) {
   // 取得集合圖片路徑
   const sourceCollectionImagesPath = path.resolve(sourceCollection, 'images')
 
+  // 取得 images 資料夾路徑
+  const imagesDir = path.resolve(userWallpaperDir, 'images')
+
+  // 重新建立 images 資料夾
+  if (fs.existsSync(imagesDir)) {
+    fs.rmSync(imagesDir, { recursive: true, force: true })
+  }
+  fs.mkdirSync(imagesDir)
+
   // 複製集合圖片到 .terminal-wallpaper/images
   const targetImagesPath = path.resolve(userWallpaperDir, 'images')
   fs.cpSync(sourceCollectionImagesPath, targetImagesPath, { recursive: true })

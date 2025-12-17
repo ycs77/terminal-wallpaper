@@ -25,12 +25,6 @@ export function init(args) {
   // 複製腳本檔案
   copyStubScripts()
 
-  // 建立 images 資料夾
-  const imagesDir = path.resolve(userWallpaperDir, 'images')
-  if (!fs.existsSync(imagesDir)) {
-    fs.mkdirSync(imagesDir, { recursive: true })
-  }
-
   console.log('✓ Terminal Wallpaper 初始化完成！')
   console.log()
   console.log()
