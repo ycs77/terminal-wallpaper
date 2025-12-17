@@ -76,7 +76,7 @@ export function use(collectionName) {
   // 保存當前顯示集合的 metadata
   const currentMetadata = {
     name: collectionName,
-    addedAt: new Date().toISOString(),
+    usedAt: new Date().toISOString(),
     filenameTemplate,
     startIndex: 1,
     endIndex: fs.readdirSync(sourceCollectionImagesPath).length,

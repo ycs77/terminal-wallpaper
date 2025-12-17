@@ -1,4 +1,4 @@
-// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.4)
+// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.5)
 //
 // 工作排程器
 //   - 名稱：ChangeTerminalWallpaper
@@ -15,7 +15,7 @@ import os from 'node:os'
 const metadataPath = path.resolve(import.meta.dirname, 'metadata.json')
 
 if (!fs.existsSync(metadataPath)) {
-  console.error('✗ 請先使用 `./terminal-wallpaper add` 指令新增 wallpaper collection')
+  console.error('✗ 請先使用 `./terminal-wallpaper use` 指令套用任意一個桌布集合')
   process.exit(1)
 }
 
