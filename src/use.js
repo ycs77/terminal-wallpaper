@@ -7,7 +7,7 @@ import {
   saveImageState
 } from './utils.js'
 
-export function add(collectionName) {
+export function use(collectionName) {
   const homeDir = os.homedir()
   const userWallpaperDir = path.resolve(homeDir, '.terminal-wallpaper')
 

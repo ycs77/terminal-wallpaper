@@ -22,12 +22,12 @@ git clone https://github.com/ycs77/terminal-wallpaper.git
 ./terminal-wallpaper init
 ```
 
-新增桌布集合到當前環境：
+套用指定的桌布集合：
 
 ```bash
-./terminal-wallpaper add <collection-name>
-# 範例：新增一個集合
-./terminal-wallpaper add majotabi
+./terminal-wallpaper use <collection-name>
+# 範例：套用一個集合
+./terminal-wallpaper use majotabi
 ```
 
 更新腳本：
