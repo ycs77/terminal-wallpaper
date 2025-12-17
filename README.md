@@ -36,6 +36,11 @@ git clone https://github.com/ycs77/terminal-wallpaper.git
 ./terminal-wallpaper update
 ```
 
+解除安裝：
+
+1. 刪除 `C:\Users\[user]\.terminal-wallpaper` 目錄
+2. 從 Windows Terminal 設定中移除背景圖片設定
+
 ## 設定自動更換終端機背景圖片
 
 您可以使用工作排程器自動更換 Windows Terminal 的背景圖片：
