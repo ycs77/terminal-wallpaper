@@ -1,0 +1,9 @@
+{
+  "name": "manosaba-characters",
+  "filenameTemplate": "%s.png",
+  "windowsTerminalSettings": {
+    "backgroundImageAlignment": "bottomRight",
+    "backgroundImageOpacity": 0.15,
+    "backgroundImageStretchMode": "none"
+  }
+}
