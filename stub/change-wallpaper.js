@@ -1,4 +1,4 @@
-// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.3)
+// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.4)
 //
 // 工作排程器
 //   - 名稱：ChangeTerminalWallpaper
@@ -20,7 +20,7 @@ if (!fs.existsSync(metadataPath)) {
 }
 
 const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'))
-const { startIndex, endIndex } = metadata
+const { filenameTemplate, startIndex, endIndex } = metadata
 
 let index = startIndex
 
@@ -38,8 +38,6 @@ if (fs.existsSync(indexFilePath)) {
     index = startIndex
   }
 }
-
-const filenameTemplate = 'images/image-%s.png'
 
 // 保存當前圖片狀態
 saveImageState(import.meta.dirname, index, filenameTemplate)

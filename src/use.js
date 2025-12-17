@@ -77,6 +77,7 @@ export function use(collectionName) {
   const currentMetadata = {
     name: collectionName,
     addedAt: new Date().toISOString(),
+    filenameTemplate,
     startIndex: 1,
     endIndex: fs.readdirSync(sourceCollectionImagesPath).length,
   }
