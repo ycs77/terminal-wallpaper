@@ -92,5 +92,5 @@ export function use(collectionName) {
   // 保存當前圖片狀態
   saveImageState(userWallpaperDir, index, filenameTemplate, windowsTerminalSettings)
 
-  console.log(`✓ 集合 '${collectionName}' 已新增到 Terminal Wallpaper！`)
+  console.log(`✓ 已套用集合 '${collectionName}'`)
 }
