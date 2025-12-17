@@ -1,4 +1,4 @@
-// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.0)
+// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.1)
 //
 // 工作排程器
 //   - 名稱：ChangeTerminalWallpaper
@@ -11,25 +11,14 @@ import fs from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
 
-const homeDir = os.homedir()
+// 讀取 metadata
 const metadataPath = path.resolve(import.meta.dirname, 'metadata.json')
-const windowsTerminalConfigPath = path.resolve(
-  homeDir,
-  'AppData',
-  'Local',
-  'Packages',
-  'Microsoft.WindowsTerminal_8wekyb3d8bbwe',
-  'LocalState',
-  'settings.json'
-)
-const filenameTemplate = 'images/image-%s.png'
 
 if (!fs.existsSync(metadataPath)) {
   console.error('✗ 請先使用 `./terminal-wallpaper add` 指令新增 wallpaper collection')
   process.exit(1)
 }
 
-// 讀取 metadata
 const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'))
 const { startIndex, endIndex } = metadata
 
@@ -50,28 +39,55 @@ if (fs.existsSync(indexFilePath)) {
   }
 }
 
-// 格式化索引為兩位數字字串
-const indexStr = String(index).padStart(2, '0')
+const filenameTemplate = 'images/image-%s.png'
 
-// 將索引儲存至檔案
-fs.writeFileSync(indexFilePath, String(index), 'utf-8')
+// 保存當前圖片狀態
+saveImageState(import.meta.dirname, index, filenameTemplate)
 
-// 讀取 Windows Terminal 設定檔
-let config = fs.readFileSync(windowsTerminalConfigPath, 'utf-8')
+// from src/utils.js
+function getWindowsTerminalConfigPath() {
+  return path.resolve(
+    os.homedir(),
+    'AppData',
+    'Local',
+    'Packages',
+    'Microsoft.WindowsTerminal_8wekyb3d8bbwe',
+    'LocalState',
+    'settings.json'
+  )
+}
 
-// 取得圖片路徑
-const imagePath = path.resolve(import.meta.dirname, filenameTemplate.replace('%s', indexStr))
+// from src/utils.js
+function saveImageState(targetDir, index, filenameTemplate) {
+  // 取得索引檔案路徑
+  const indexFilePath = path.resolve(targetDir, 'index')
 
-// 檢查背景圖片路徑是否包含反斜線
-const hasBackslashesInPath = /"defaults":\s*\{[^}]*"backgroundImage": *"[^"]*\\+/.test(config)
+  // 格式化索引為兩位數字字串
+  const indexStr = String(index).padStart(2, '0')
 
-// 更新背景圖片路徑
-config = config.replace(
-  /(?<="defaults":\s*\{[^}]*"backgroundImage": *")[^"]*/,
-  hasBackslashesInPath
-    ? imagePath.replaceAll(/[/\\]/g, '\\\\')
-    : imagePath.replaceAll(/\\/g, '/')
-)
+  // 將索引儲存至檔案
+  fs.writeFileSync(indexFilePath, String(index), 'utf-8')
 
-// 更新 Windows Terminal 設定檔
-fs.writeFileSync(windowsTerminalConfigPath, config, 'utf-8')
+  // 取得 Windows Terminal 設定檔 路徑
+  const windowsTerminalConfigPath = getWindowsTerminalConfigPath()
+
+  // 讀取 Windows Terminal 設定檔
+  let config = fs.readFileSync(windowsTerminalConfigPath, 'utf-8')
+
+  // 取得圖片路徑
+  const imagePath = path.resolve(targetDir, filenameTemplate.replace('%s', indexStr))
+
+  // 檢查背景圖片路徑是否包含反斜線
+  const hasBackslashesInPath = /"defaults":\s*\{[^}]*"backgroundImage": *"[^"]*\\+/.test(config)
+
+  // 更新背景圖片路徑
+  config = config.replace(
+    /(?<="defaults":\s*\{[^}]*"backgroundImage": *")[^"]*/,
+    hasBackslashesInPath
+      ? imagePath.replaceAll(/[/\\]/g, '\\\\')
+      : imagePath.replaceAll(/\\/g, '/')
+  )
+
+  // 更新 Windows Terminal 設定檔
+  fs.writeFileSync(windowsTerminalConfigPath, config, 'utf-8')
+}

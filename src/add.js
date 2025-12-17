@@ -1,21 +1,15 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
-import { printWindowsTerminalConfigInstruction } from './utils.js'
+import {
+  printWindowsTerminalConfigInstruction,
+  getWindowsTerminalConfigPath,
+  saveImageState
+} from './utils.js'
 
 export function add(collectionName) {
   const homeDir = os.homedir()
   const targetDir = path.resolve(homeDir, '.terminal-wallpaper')
-  const windowsTerminalConfigPath = path.resolve(
-    homeDir,
-    'AppData',
-    'Local',
-    'Packages',
-    'Microsoft.WindowsTerminal_8wekyb3d8bbwe',
-    'LocalState',
-    'settings.json'
-  )
-  const filenameTemplate = 'images/image-%s.png'
 
   // 檢查 .terminal-wallpaper 資料夾是否存在
   if (!fs.existsSync(targetDir)) {
@@ -24,7 +18,7 @@ export function add(collectionName) {
   }
 
   // 讀取 Windows Terminal 設定檔
-  let config = fs.readFileSync(windowsTerminalConfigPath, 'utf-8')
+  let config = fs.readFileSync(getWindowsTerminalConfigPath(), 'utf-8')
 
   // 檢查 Windows Terminal 設定檔格式是否正確
   try {
@@ -75,32 +69,10 @@ export function add(collectionName) {
   )
 
   const index = 1
+  const filenameTemplate = 'images/image-%s.png'
 
-  // 取得索引檔案路徑
-  const indexFilePath = path.resolve(targetDir, 'index')
-
-  // 格式化索引為兩位數字字串
-  const indexStr = String(index).padStart(2, '0')
-
-  // 將索引儲存至檔案
-  fs.writeFileSync(indexFilePath, String(index), 'utf-8')
-
-  // 取得第一張圖片路徑
-  const imagePath = path.resolve(targetDir, filenameTemplate.replace('%s', indexStr))
-
-  // 檢查背景圖片路徑是否包含反斜線
-  const hasBackslashesInPath = /"defaults":\s*\{[^}]*"backgroundImage": *"[^"]*\\+/.test(config)
-
-  // 更新背景圖片路徑
-  config = config.replace(
-    /(?<="defaults":\s*\{[^}]*"backgroundImage": *")[^"]*/,
-    hasBackslashesInPath
-      ? imagePath.replaceAll(/[/\\]/g, '\\\\')
-      : imagePath.replaceAll(/\\/g, '/')
-  )
-
-  // 更新 Windows Terminal 設定檔
-  fs.writeFileSync(windowsTerminalConfigPath, config, 'utf-8')
+  // 保存當前圖片狀態
+  saveImageState(targetDir, index, filenameTemplate)
 
   console.log(`✓ Collection '${collectionName}' 已新增到 Terminal Wallpaper！`)
 }

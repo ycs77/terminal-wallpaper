@@ -20,7 +20,7 @@ switch (command) {
     update()
     break
   default:
-    console.log('Terminal Wallpaper CLI (v1.0.0)')
+    console.log('Terminal Wallpaper CLI (v1.0.1)')
     console.log('')
     console.log('使用方式:')
     console.log('  ./terminal-wallpaper init          初始化 Terminal Wallpaper')
