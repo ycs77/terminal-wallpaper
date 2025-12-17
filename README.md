@@ -2,6 +2,10 @@
 
 此儲存庫包含 Lucas Yang 常用的 Windows Terminal 桌布集合和輔助的 CLI 小工具。
 
+## 桌布集合列表
+
+- [`majotabi`](collections/majotabi) - 魔女之旅
+
 ## 安裝
 
 請先 clone 此儲存庫：
@@ -18,11 +22,11 @@ git clone https://github.com/ycs77/terminal-wallpaper.git
 ./terminal-wallpaper init
 ```
 
-新增桌布 collection 到當前環境：
+新增桌布集合到當前環境：
 
 ```bash
 ./terminal-wallpaper add <collection-name>
-# 範例：新增一個 collection
+# 範例：新增一個集合
 ./terminal-wallpaper add majotabi
 ```
 
@@ -43,10 +47,6 @@ git clone https://github.com/ycs77/terminal-wallpaper.git
   - **新增引數:** `C:\Users\[user]\.terminal-wallpaper\change-wallpaper.js`
 
 此設定會在使用者登入時，自動執行更換終端機背景圖片的腳本。
-
-## Collection 列表
-
-- `majotabi` - 魔女之旅
 
 ## 授權
 
