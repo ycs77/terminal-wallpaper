@@ -1,0 +1,77 @@
+// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.0)
+//
+// 工作排程器
+//   - 名稱：ChangeTerminalWallpaper
+//   - 觸發：登入時 / 當任何使用者登入時執行
+//   - 動作：
+//     程式或指令碼："C:\Program Files\nodejs\node.exe"
+//     新增引數：C:\Users\[user]\.terminal-wallpaper\change-wallpaper.js
+
+import fs from 'node:fs'
+import path from 'node:path'
+import os from 'node:os'
+
+const homeDir = os.homedir()
+const metadataPath = path.resolve(import.meta.dirname, 'metadata.json')
+const windowsTerminalConfigPath = path.resolve(
+  homeDir,
+  'AppData',
+  'Local',
+  'Packages',
+  'Microsoft.WindowsTerminal_8wekyb3d8bbwe',
+  'LocalState',
+  'settings.json'
+)
+const filenameTemplate = 'images/image-%s.png'
+
+if (!fs.existsSync(metadataPath)) {
+  console.error('✗ 請先使用 `./terminal-wallpaper add` 指令新增 wallpaper collection')
+  process.exit(1)
+}
+
+// 讀取 metadata
+const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'))
+const { startIndex, endIndex } = metadata
+
+let index = startIndex
+
+// 取得索引檔案路徑
+const indexFilePath = path.resolve(import.meta.dirname, 'index')
+
+// 如果索引檔案存在則更新索引
+if (fs.existsSync(indexFilePath)) {
+  index = parseInt(fs.readFileSync(indexFilePath, 'utf-8'))
+  // 索引遞增
+  index++
+
+  // 如果索引超過結束索引則重置
+  if (index > endIndex) {
+    index = startIndex
+  }
+}
+
+// 格式化索引為兩位數字字串
+const indexStr = String(index).padStart(2, '0')
+
+// 將索引儲存至檔案
+fs.writeFileSync(indexFilePath, String(index), 'utf-8')
+
+// 讀取 Windows Terminal 設定檔
+let config = fs.readFileSync(windowsTerminalConfigPath, 'utf-8')
+
+// 取得圖片路徑
+const imagePath = path.resolve(import.meta.dirname, filenameTemplate.replace('%s', indexStr))
+
+// 檢查背景圖片路徑是否包含反斜線
+const hasBackslashesInPath = /"defaults":\s*\{[^}]*"backgroundImage": *"[^"]*\\+/.test(config)
+
+// 更新背景圖片路徑
+config = config.replace(
+  /(?<="defaults":\s*\{[^}]*"backgroundImage": *")[^"]*/,
+  hasBackslashesInPath
+    ? imagePath.replaceAll(/[/\\]/g, '\\\\')
+    : imagePath.replaceAll(/\\/g, '/')
+)
+
+// 更新 Windows Terminal 設定檔
+fs.writeFileSync(windowsTerminalConfigPath, config, 'utf-8')
