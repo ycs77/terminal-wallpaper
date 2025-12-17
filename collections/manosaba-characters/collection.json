@@ -1,5 +1,6 @@
 {
   "name": "manosaba-characters",
+  "description": "魔法少女的魔女審判 角色",
   "filenameTemplate": "%s.png",
   "windowsTerminalSettings": {
     "backgroundImageAlignment": "bottomRight",

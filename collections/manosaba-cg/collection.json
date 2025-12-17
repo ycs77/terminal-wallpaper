@@ -1,5 +1,6 @@
 {
   "name": "manosaba-cg",
+  "description": "魔法少女的魔女審判 CG",
   "filenameTemplate": "%s.jpg",
   "windowsTerminalSettings": {
     "backgroundImageAlignment": "center",

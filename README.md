@@ -24,6 +24,12 @@ git clone https://github.com/ycs77/terminal-wallpaper.git
 ./terminal-wallpaper init
 ```
 
+列出所有可用的桌布集合：
+
+```bash
+./terminal-wallpaper list
+```
+
 套用指定的桌布集合：
 
 ```bash
