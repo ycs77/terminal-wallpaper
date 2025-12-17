@@ -1,0 +1,9 @@
+{
+  "name": "manosaba-cg",
+  "filenameTemplate": "%s.jpg",
+  "windowsTerminalSettings": {
+    "backgroundImageAlignment": "center",
+    "backgroundImageOpacity": 0.15,
+    "backgroundImageStretchMode": "uniformToFill"
+  }
+}

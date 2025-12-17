@@ -4,7 +4,8 @@
 
 ## 桌布集合列表
 
-- [`majotabi`](collections/majotabi) - 魔女之旅
+- [`majotabi`](collections/majotabi) - 魔女之旅 角色
+- [`manosaba-cg`](collections/manosaba-cg) - 魔法少女的魔女審判 CG
 
 ## 安裝
 
