@@ -4,11 +4,11 @@ import os from 'node:os'
 
 export function copyStubScripts() {
   const homeDir = os.homedir()
-  const targetDir = path.resolve(homeDir, '.terminal-wallpaper')
+  const userWallpaperDir = path.resolve(homeDir, '.terminal-wallpaper')
   const projectRoot = path.resolve(import.meta.dirname, '..')
 
   const stubFile = path.resolve(projectRoot, 'stub', 'change-wallpaper.js')
-  const targetFile = path.resolve(targetDir, 'change-wallpaper.js')
+  const targetFile = path.resolve(userWallpaperDir, 'change-wallpaper.js')
   fs.copyFileSync(stubFile, targetFile)
 }
 
@@ -41,9 +41,9 @@ export function getWindowsTerminalConfigPath() {
   )
 }
 
-export function saveImageState(targetDir, index, filenameTemplate) {
+export function saveImageState(userWallpaperDir, index, filenameTemplate, windowsTerminalSettings = {}) {
   // 取得索引檔案路徑
-  const indexFilePath = path.resolve(targetDir, 'index')
+  const indexFilePath = path.resolve(userWallpaperDir, 'index')
 
   // 格式化索引為兩位數字字串
   const indexStr = String(index).padStart(2, '0')
@@ -58,7 +58,7 @@ export function saveImageState(targetDir, index, filenameTemplate) {
   let config = fs.readFileSync(windowsTerminalConfigPath, 'utf-8')
 
   // 取得圖片路徑
-  const imagePath = path.resolve(targetDir, filenameTemplate.replace('%s', indexStr))
+  const imagePath = path.resolve(userWallpaperDir, 'images', filenameTemplate.replace('%s', indexStr))
 
   // 檢查背景圖片路徑是否包含反斜線
   const hasBackslashesInPath = /"defaults":\s*\{[^}]*"backgroundImage": *"[^"]*\\+/.test(config)
@@ -70,6 +70,30 @@ export function saveImageState(targetDir, index, filenameTemplate) {
       ? imagePath.replaceAll(/[/\\]/g, '\\\\')
       : imagePath.replaceAll(/\\/g, '/')
   )
+
+  // 更新背景圖片對齊方式
+  if (typeof windowsTerminalSettings.backgroundImageAlignment !== 'undefined') {
+    config = config.replace(
+      /(?<="defaults":\s*\{[^}]*"backgroundImageAlignment": *")[^"]*/,
+      windowsTerminalSettings.backgroundImageAlignment
+    )
+  }
+
+  // 更新背景圖片不透明度
+  if (typeof windowsTerminalSettings.backgroundImageOpacity !== 'undefined') {
+    config = config.replace(
+      /(?<="defaults":\s*\{[^}]*"backgroundImageOpacity": *)[\d.]+/,
+      String(windowsTerminalSettings.backgroundImageOpacity)
+    )
+  }
+
+  // 更新背景圖片拉伸模式
+  if (typeof windowsTerminalSettings.backgroundImageStretchMode !== 'undefined') {
+    config = config.replace(
+      /(?<="defaults":\s*\{[^}]*"backgroundImageStretchMode": *")[^"]*/,
+      windowsTerminalSettings.backgroundImageStretchMode
+    )
+  }
 
   // 更新 Windows Terminal 設定檔
   fs.writeFileSync(windowsTerminalConfigPath, config, 'utf-8')

@@ -1,0 +1,9 @@
+{
+  "name": "majotabi",
+  "filenameTemplate": "image-%s.png",
+  "windowsTerminalSettings": {
+    "backgroundImageAlignment": "bottomRight",
+    "backgroundImageOpacity": 0.1,
+    "backgroundImageStretchMode": "none"
+  }
+}

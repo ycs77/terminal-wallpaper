@@ -1,4 +1,4 @@
-// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.1)
+// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.2)
 //
 // 工作排程器
 //   - 名稱：ChangeTerminalWallpaper
@@ -58,9 +58,9 @@ function getWindowsTerminalConfigPath() {
 }
 
 // from src/utils.js
-function saveImageState(targetDir, index, filenameTemplate) {
+function saveImageState(userWallpaperDir, index, filenameTemplate, windowsTerminalSettings = {}) {
   // 取得索引檔案路徑
-  const indexFilePath = path.resolve(targetDir, 'index')
+  const indexFilePath = path.resolve(userWallpaperDir, 'index')
 
   // 格式化索引為兩位數字字串
   const indexStr = String(index).padStart(2, '0')
@@ -75,7 +75,7 @@ function saveImageState(targetDir, index, filenameTemplate) {
   let config = fs.readFileSync(windowsTerminalConfigPath, 'utf-8')
 
   // 取得圖片路徑
-  const imagePath = path.resolve(targetDir, filenameTemplate.replace('%s', indexStr))
+  const imagePath = path.resolve(userWallpaperDir, 'images', filenameTemplate.replace('%s', indexStr))
 
   // 檢查背景圖片路徑是否包含反斜線
   const hasBackslashesInPath = /"defaults":\s*\{[^}]*"backgroundImage": *"[^"]*\\+/.test(config)
@@ -87,6 +87,30 @@ function saveImageState(targetDir, index, filenameTemplate) {
       ? imagePath.replaceAll(/[/\\]/g, '\\\\')
       : imagePath.replaceAll(/\\/g, '/')
   )
+
+  // 更新背景圖片對齊方式
+  if (typeof windowsTerminalSettings.backgroundImageAlignment !== 'undefined') {
+    config = config.replace(
+      /(?<="defaults":\s*\{[^}]*"backgroundImageAlignment": *")[^"]*/,
+      windowsTerminalSettings.backgroundImageAlignment
+    )
+  }
+
+  // 更新背景圖片不透明度
+  if (typeof windowsTerminalSettings.backgroundImageOpacity !== 'undefined') {
+    config = config.replace(
+      /(?<="defaults":\s*\{[^}]*"backgroundImageOpacity": *)[\d.]+/,
+      String(windowsTerminalSettings.backgroundImageOpacity)
+    )
+  }
+
+  // 更新背景圖片拉伸模式
+  if (typeof windowsTerminalSettings.backgroundImageStretchMode !== 'undefined') {
+    config = config.replace(
+      /(?<="defaults":\s*\{[^}]*"backgroundImageStretchMode": *")[^"]*/,
+      windowsTerminalSettings.backgroundImageStretchMode
+    )
+  }
 
   // 更新 Windows Terminal 設定檔
   fs.writeFileSync(windowsTerminalConfigPath, config, 'utf-8')

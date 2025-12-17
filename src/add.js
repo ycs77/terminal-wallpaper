@@ -9,10 +9,10 @@ import {
 
 export function add(collectionName) {
   const homeDir = os.homedir()
-  const targetDir = path.resolve(homeDir, '.terminal-wallpaper')
+  const userWallpaperDir = path.resolve(homeDir, '.terminal-wallpaper')
 
   // 檢查 .terminal-wallpaper 資料夾是否存在
-  if (!fs.existsSync(targetDir)) {
+  if (!fs.existsSync(userWallpaperDir)) {
     console.error('✗ 請先執行 `./terminal-wallpaper init` 初始化')
     process.exit(1)
   }
@@ -45,34 +45,42 @@ export function add(collectionName) {
   const projectRoot = path.resolve(import.meta.dirname, '..')
   const sourceCollection = path.resolve(projectRoot, 'collections', collectionName)
 
-  // 檢查 collection 是否存在
+  // 檢查集合是否存在
   if (!fs.existsSync(sourceCollection)) {
-    console.error(`✗ Collection '${collectionName}' 不存在`)
+    console.error(`✗ 集合 '${collectionName}' 不存在`)
     process.exit(1)
   }
 
-  // 複製 collection 到 .terminal-wallpaper/images
-  const targetCollection = path.resolve(targetDir, 'images')
-  fs.cpSync(sourceCollection, targetCollection, { recursive: true })
+  // 取得集合圖片路徑
+  const sourceCollectionImagesPath = path.resolve(sourceCollection, 'images')
 
-  // 保存 collection 的 metadata
-  const metadata = {
+  // 複製集合圖片到 .terminal-wallpaper/images
+  const targetImagesPath = path.resolve(userWallpaperDir, 'images')
+  fs.cpSync(sourceCollectionImagesPath, targetImagesPath, { recursive: true })
+
+  // 取得集合的 metadata
+  const collectionMetadataPath = path.resolve(sourceCollection, 'collection.json')
+  const collectionMetadata = JSON.parse(fs.readFileSync(collectionMetadataPath, 'utf-8'))
+
+  const { filenameTemplate, windowsTerminalSettings } = collectionMetadata
+
+  // 保存當前顯示集合的 metadata
+  const currentMetadata = {
     name: collectionName,
     addedAt: new Date().toISOString(),
     startIndex: 1,
-    endIndex: fs.readdirSync(sourceCollection).length,
+    endIndex: fs.readdirSync(sourceCollectionImagesPath).length,
   }
   fs.writeFileSync(
-    path.resolve(targetDir, 'metadata.json'),
-    JSON.stringify(metadata, null, 2),
+    path.resolve(userWallpaperDir, 'metadata.json'),
+    JSON.stringify(currentMetadata, null, 2),
     'utf-8'
   )
 
   const index = 1
-  const filenameTemplate = 'images/image-%s.png'
 
   // 保存當前圖片狀態
-  saveImageState(targetDir, index, filenameTemplate)
+  saveImageState(userWallpaperDir, index, filenameTemplate, windowsTerminalSettings)
 
-  console.log(`✓ Collection '${collectionName}' 已新增到 Terminal Wallpaper！`)
+  console.log(`✓ 集合 '${collectionName}' 已新增到 Terminal Wallpaper！`)
 }

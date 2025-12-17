@@ -5,10 +5,10 @@ import { copyStubScripts } from './utils.js'
 
 export function update() {
   const homeDir = os.homedir()
-  const targetDir = path.resolve(homeDir, '.terminal-wallpaper')
+  const userWallpaperDir = path.resolve(homeDir, '.terminal-wallpaper')
 
   // 檢查 .terminal-wallpaper 資料夾是否存在
-  if (!fs.existsSync(targetDir)) {
+  if (!fs.existsSync(userWallpaperDir)) {
     console.error('✗ 請先執行 `./terminal-wallpaper init` 初始化')
     process.exit(1)
   }
