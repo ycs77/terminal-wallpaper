@@ -47,3 +47,7 @@ git clone https://github.com/ycs77/terminal-wallpaper.git
 ## Collection 列表
 
 - `majotabi` - 魔女之旅
+
+## 授權
+
+程式碼使用 [MIT License](LICENSE.md) 授權。所有桌布圖片均來自網路，版權歸原作者所有。
