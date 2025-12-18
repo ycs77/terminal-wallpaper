@@ -67,6 +67,6 @@ git clone https://github.com/ycs77/terminal-wallpaper.git
 
 ## 授權
 
-程式碼使用 [MIT License](LICENSE.md) 授權。
+[MIT License](LICENSE.md)
 
-所有桌布圖片均來自網路，版權歸原作者所有。
+本倉庫中的桌布集合圖片均從網路上取得，版權歸原作者所有。
