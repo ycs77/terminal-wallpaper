@@ -1,11 +1,6 @@
-// Terminal Wallpaper 自動更換背景圖片腳本 (v1.0.7)
-//
-// 工作排程器
-//   - 名稱：ChangeTerminalWallpaper
-//   - 觸發：登入時 / 當任何使用者登入時執行
-//   - 動作：
-//     程式或指令碼："C:\Program Files\nodejs\node.exe"
-//     新增引數：C:\Users\[user]\.terminal-wallpaper\change-wallpaper.js
+/**
+ * Terminal Wallpaper 自動更換背景圖片腳本 v1.1.0
+ */
 
 import fs from 'node:fs'
 import path from 'node:path'

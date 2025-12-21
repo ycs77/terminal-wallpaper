@@ -13,7 +13,7 @@ export function copyStubScripts() {
 }
 
 export function printWindowsTerminalConfigInstruction() {
-  console.log('請將你的 Windows Terminal 設定檔（settings.json）中的 profiles.defaults 設定成以下格式：')
+  console.log('請將你的 Windows Terminal 設定檔 (settings.json) 中的 profiles.defaults 設定成以下格式：')
   console.log()
   console.log('{')
   console.log('    "profiles": ')

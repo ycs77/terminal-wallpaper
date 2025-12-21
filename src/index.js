@@ -28,7 +28,7 @@ switch (command) {
     updateReadme()
     break
   default:
-    console.log('Terminal Wallpaper CLI (v1.0.7)')
+    console.log('Terminal Wallpaper CLI v1.1.0')
     console.log('')
     console.log('使用方式:')
     console.log('  ./terminal-wallpaper init          初始化 Terminal Wallpaper')

@@ -19,15 +19,33 @@
 
 ```bash
 git clone https://github.com/ycs77/terminal-wallpaper.git
+cd terminal-wallpaper
 ```
 
-## 使用方式
-
-在當前目錄下執行初始化指令：
+在當前目錄 (terminal-wallpaper) 下執行初始化指令：
 
 ```bash
 ./terminal-wallpaper init
 ```
+
+然後將你的 Windows Terminal 設定檔 (settings.json) 中的 `profiles.defaults` 設定成以下格式：
+
+```json
+{
+    "profiles":
+    {
+        "defaults":
+        {
+            "backgroundImage": "",
+            "backgroundImageAlignment": "center",
+            "backgroundImageOpacity": 0.1,
+            "backgroundImageStretchMode": "uniformToFill"
+        }
+    }
+}
+```
+
+## 使用方式
 
 列出所有可用的桌布集合：
 
