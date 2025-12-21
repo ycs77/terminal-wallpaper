@@ -10,6 +10,7 @@
 | [`majotabi`](collections/majotabi) | 魔女之旅 角色 |
 | [`manosaba-cg`](collections/manosaba-cg) | 魔法少女的魔女審判 CG |
 | [`manosaba-characters`](collections/manosaba-characters) | 魔法少女的魔女審判 角色 |
+| [`manosaba-characters-majoka`](collections/manosaba-characters-majoka) | 魔法少女的魔女審判 角色魔女化 |
 <!-- list-end -->
 
 ## 安裝

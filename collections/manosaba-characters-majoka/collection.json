@@ -1,0 +1,10 @@
+{
+  "name": "manosaba-characters-majoka",
+  "description": "魔法少女的魔女審判 角色魔女化",
+  "filenameTemplate": "%s.png",
+  "windowsTerminalSettings": {
+    "backgroundImageAlignment": "bottomRight",
+    "backgroundImageOpacity": 0.15,
+    "backgroundImageStretchMode": "none"
+  }
+}
