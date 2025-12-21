@@ -15,7 +15,7 @@
 
 ## 安裝
 
-請先 clone 此儲存庫：
+請先安裝 Node.js 22，然後 clone 此儲存庫：
 
 ```bash
 git clone https://github.com/ycs77/terminal-wallpaper.git
@@ -57,8 +57,8 @@ cd terminal-wallpaper
 
 ```bash
 ./terminal-wallpaper use <collection-name>
-# 範例：套用一個集合
-./terminal-wallpaper use majotabi
+# 套用一個集合
+./terminal-wallpaper use manosaba-characters
 ```
 
 更新腳本：
