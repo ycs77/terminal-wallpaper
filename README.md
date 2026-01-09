@@ -15,7 +15,7 @@
 
 ## 安裝
 
-請先安裝 Node.js 22，然後 clone 此儲存庫：
+請先安裝 Node.js 24，然後 clone 此儲存庫：
 
 ```bash
 git clone https://github.com/ycs77/terminal-wallpaper.git
