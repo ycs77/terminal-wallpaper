@@ -1,5 +1,5 @@
 /**
- * Terminal Wallpaper 自動更換背景圖片腳本 v1.1.0
+ * Terminal Wallpaper 自動更換背景圖片腳本 v1.2.0
  */
 
 import fs from 'node:fs'

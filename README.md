@@ -67,21 +67,15 @@ cd terminal-wallpaper
 ./terminal-wallpaper update
 ```
 
-## 設定自動更換終端機背景圖片
+## 開機自動更換背景圖片
 
-設定工作排程器，讓使用者登入時，自動執行更換終端機背景圖片的腳本。需要以系統管理員身分執行 PowerShell (將 `[user]` 替換為你的 Windows 使用者名稱)。
-
-建立工作排程器任務：
-
-```ps1
-Register-ScheduledTask -TaskName "ChangeTerminalWallpaper" -Action (New-ScheduledTaskAction -Execute "C:\Program Files\nodejs\node.exe" -Argument "C:\Users\[user]\.terminal-wallpaper\change-wallpaper.js") -Trigger (New-ScheduledTaskTrigger -AtLogOn) -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries) -RunLevel Limited
-```
+設定開機時自動執行更換終端機背景圖片的腳本，雙擊執行 `startup-install.cmd` 即可。
 
 ## 解除安裝
 
-1. 刪除 `C:\Users\[user]\.terminal-wallpaper` 目錄
-2. 從 Windows Terminal 設定中移除背景圖片設定
-3. 使用 PowerShell 刪除工作排程器任務：`Unregister-ScheduledTask -TaskName "ChangeTerminalWallpaper" -Confirm:$false`
+1. 雙擊執行 `startup-uninstall.cmd` 移除自動更換圖片
+2. 刪除 `C:\Users\[user]\.terminal-wallpaper` 目錄
+3. 從 Windows Terminal 設定中移除背景圖片設定
 4. 刪除此儲存庫目錄
 
 ## 授權

@@ -10,6 +10,10 @@ export function copyStubScripts() {
   const stubFile = path.resolve(projectRoot, 'stub', 'change-wallpaper.js')
   const targetFile = path.resolve(userWallpaperDir, 'change-wallpaper.js')
   fs.copyFileSync(stubFile, targetFile)
+
+  const vbsFile = path.resolve(projectRoot, 'stub', 'start.vbs')
+  const targetVbsFile = path.resolve(userWallpaperDir, 'start.vbs')
+  fs.copyFileSync(vbsFile, targetVbsFile)
 }
 
 export function printWindowsTerminalConfigInstruction() {
