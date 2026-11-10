@@ -61,15 +61,18 @@ cd terminal-wallpaper
 ./terminal-wallpaper use manosaba-characters
 ```
 
-更新腳本：
-
-```bash
-./terminal-wallpaper update
-```
-
 ## 開機自動更換背景圖片
 
 設定開機時自動執行更換終端機背景圖片的腳本，雙擊執行 `startup-install.cmd` 即可。
+
+## 更新腳本
+
+當有新的桌布集合或更新時，請執行以下指令更新腳本：
+
+```bash
+git pull
+./terminal-wallpaper update
+```
 
 ## 解除安裝
 
